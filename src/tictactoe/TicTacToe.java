@@ -45,6 +45,7 @@ public class TicTacToe extends Application
         
         message = new Label();
         playComputer = new CheckBox("Play Computer");
+        playComputer.setSelected(true);
         
         newGame = new Button("New Game");
         newGame.setOnAction(ae -> { clearTheBoard(); });
