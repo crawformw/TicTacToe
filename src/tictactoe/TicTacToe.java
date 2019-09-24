@@ -7,7 +7,6 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -24,7 +23,6 @@ public class TicTacToe extends Application
     private static ScoreBoard ticTacBoard;
     
     private static TicTacButton[][] RC;         // matrix of buttons that represents our tic tac toe board
-    private static Label message;               // message text 
     
     private Button newGame;                     // button to start new games
     private Button exitGame;                    // button to exit program
@@ -43,7 +41,6 @@ public class TicTacToe extends Application
         gameControls = new HBox(3);
         gameControls.setPadding(new Insets(4, 4, 4, 4));
         
-        message = new Label();
         playComputer = new CheckBox("Play Computer");
         playComputer.setSelected(true);
         
@@ -57,7 +54,7 @@ public class TicTacToe extends Application
             System.exit(0); 
         });
         
-        gameControls.getChildren().addAll(newGame, exitGame, message);
+        gameControls.getChildren().addAll(newGame, exitGame);
         
         ticTacBoard = new ScoreBoard();
                 
@@ -108,9 +105,9 @@ public class TicTacToe extends Application
         
         VBox root = new VBox();
         root.setPadding(new Insets(4, 4, 4, 4));
-        root.getChildren().addAll(grid, gameControls, ticTacBoard, playComputer);
+        root.getChildren().addAll(grid, gameControls, playComputer, ticTacBoard);
         
-        Scene scene = new Scene(root, 250, 400);
+        Scene scene = new Scene(root, 250, 450);
         
         primaryStage.setTitle("Tic-Tac-Toe");
         primaryStage.setScene(scene);
@@ -178,8 +175,8 @@ public class TicTacToe extends Application
         gameOn = true;
         player = 1;
         turnCount = 1;
-        if (playComputer.isSelected()) { setMessage("Play Computer"); }
-        else { setMessage("Turn: " + player); }
+        if (playComputer.isSelected()) { ticTacBoard.setMessage("Playing Against Computer"); }
+        else { ticTacBoard.setMessage("Playing Against Opponent"); }
     }
     
     public static boolean isGameOn() { return gameOn; }
@@ -344,7 +341,6 @@ public class TicTacToe extends Application
         // check if X is the winner in any case
         if (row1 == 3)
         {
-            setMessage(" X Wins");
             highLightRow(0);
             gameOn = false;
             ticTacBoard.xWins();
@@ -352,7 +348,6 @@ public class TicTacToe extends Application
         
         if (row2 == 3)
         {
-            setMessage(" X Wins");
             highLightRow(1);
             gameOn = false;
             ticTacBoard.xWins();
@@ -360,7 +355,6 @@ public class TicTacToe extends Application
         
         if (row3 == 3)
         {
-            setMessage(" X Wins");
             highLightRow(2);
             gameOn = false;
             ticTacBoard.xWins();
@@ -368,7 +362,6 @@ public class TicTacToe extends Application
         
         if (col1 == 3)
         {
-            setMessage(" X Wins");
             highLightCol(0);
             gameOn = false;
             ticTacBoard.xWins();
@@ -376,7 +369,6 @@ public class TicTacToe extends Application
         
         if (col2 == 3)
         {
-            setMessage(" X Wins");
             highLightCol(1);
             gameOn = false; 
             ticTacBoard.xWins();
@@ -384,7 +376,6 @@ public class TicTacToe extends Application
         
         if (col3 == 3)
         {
-            setMessage(" X Wins");
             highLightCol(2);
             gameOn = false;
             ticTacBoard.xWins();
@@ -392,7 +383,6 @@ public class TicTacToe extends Application
         
         if ( dia1 == 3 ) 
         { 
-            setMessage(" X Wins");
             highLightDiagonal(1);
             gameOn = false;
             ticTacBoard.xWins();
@@ -400,7 +390,6 @@ public class TicTacToe extends Application
         
         if ( dia2 == 3 ) 
         { 
-            setMessage(" X Wins");
             highLightDiagonal(2);
             gameOn = false;
             ticTacBoard.xWins();
@@ -409,7 +398,6 @@ public class TicTacToe extends Application
         // check if O is the winner in any case
        if (row1 == -3)
         {
-            setMessage(" O Wins");
             highLightRow(0);
             gameOn = false;
             ticTacBoard.oWins();
@@ -417,7 +405,6 @@ public class TicTacToe extends Application
         
         if (row2 == -3)
         {
-            setMessage(" O Wins");
             highLightRow(1);
             gameOn = false;
             ticTacBoard.oWins();
@@ -425,7 +412,6 @@ public class TicTacToe extends Application
         
         if (row3 == -3)
         {
-            setMessage(" O Wins");
             highLightRow(2);
             gameOn = false;
             ticTacBoard.oWins();
@@ -433,7 +419,6 @@ public class TicTacToe extends Application
         
         if (col1 == -3)
         {
-            setMessage(" O Wins");
             highLightCol(0);
             gameOn = false;
             ticTacBoard.oWins();
@@ -441,7 +426,6 @@ public class TicTacToe extends Application
         
         if (col2 == -3)
         {
-            setMessage(" O Wins");
             highLightCol(1);
             gameOn = false;
             ticTacBoard.oWins();
@@ -449,7 +433,6 @@ public class TicTacToe extends Application
         
         if (col3 == -3)
         {
-            setMessage(" O Wins");
             highLightCol(2);
             gameOn = false;
             ticTacBoard.oWins();
@@ -457,7 +440,6 @@ public class TicTacToe extends Application
         
         if ( dia1 == -3 ) 
         { 
-            setMessage(" O Wins");
             highLightDiagonal(1);
             gameOn = false;
             ticTacBoard.oWins();
@@ -465,15 +447,13 @@ public class TicTacToe extends Application
         
         if ( dia2 == -3 ) 
         { 
-            setMessage(" O Wins");
             highLightDiagonal(2);
             gameOn = false;
             ticTacBoard.oWins();
         }
         
-        if (turnCount > 8)
+        if ((turnCount > 8) && (gameOn))
         {
-            setMessage(" Cat Wins");
             highLightCol(0);
             highLightCol(1);
             highLightCol(2);
@@ -492,12 +472,10 @@ public class TicTacToe extends Application
                 RC[row][0].setStyle(" -fx-background-color: yellow; -fx-text-size: 60px; "
                               + "-fx-min-width: 80px; -fx-min-height: 80px; "
                               + "-fx-max-width: 80px; -fx-max-height: 80px; ");
-            
                 RC[row][1].setStyle(" -fx-background-color: yellow; -fx-text-size: 60px; "
                             + "-fx-min-width: 80px; -fx-min-height: 80px; "
                             + "-fx-max-width: 80px; -fx-max-height: 80px; "
                             + "-fx-border-width: 0 4 0 4; -fx-border-color: black red black red;");
-            
                 RC[row][2].setStyle(" -fx-background-color: yellow; -fx-text-size: 60px; "
                               + "-fx-min-width: 80px; -fx-min-height: 80px; "
                               + "-fx-max-width: 80px; -fx-max-height: 80px; ");
@@ -530,9 +508,9 @@ public class TicTacToe extends Application
                               + "-fx-min-width: 80px; -fx-min-height: 80px; "
                               + "-fx-max-width: 80px; -fx-max-height: 80px; ");
                 RC[1][col].setStyle(" -fx-background-color: yellow; -fx-text-size: 60px; "
-                                        + "-fx-min-width: 80px; -fx-min-height: 80px; "
-                                        + "-fx-max-width: 80px; -fx-max-height: 80px; "
-                                        + "-fx-border-width: 4 0 4 0; -fx-border-color: red black red black;");
+                              + "-fx-min-width: 80px; -fx-min-height: 80px; "
+                              + "-fx-max-width: 80px; -fx-max-height: 80px; "
+                              + "-fx-border-width: 4 0 4 0; -fx-border-color: red black red black;");
                 RC[2][col].setStyle(" -fx-background-color: yellow; -fx-text-size: 60px; "
                               + "-fx-min-width: 80px; -fx-min-height: 80px; "
                               + "-fx-max-width: 80px; -fx-max-height: 80px; ");
@@ -564,9 +542,9 @@ public class TicTacToe extends Application
                               + "-fx-min-width: 80px; -fx-min-height: 80px; "
                               + "-fx-max-width: 80px; -fx-max-height: 80px; ");
                 RC[1][1].setStyle(" -fx-background-color: yellow; -fx-text-size: 60px; "
-                            + "-fx-min-width: 80px; -fx-min-height: 80px; "
-                            + "-fx-max-width: 80px; -fx-max-height: 80px; "
-                            + "-fx-border-width: 4 4 4 4; -fx-border-color: red red red red;");
+                              + "-fx-min-width: 80px; -fx-min-height: 80px; "
+                              + "-fx-max-width: 80px; -fx-max-height: 80px; "
+                              + "-fx-border-width: 4 4 4 4; -fx-border-color: red red red red;");
                 RC[2][2].setStyle(" -fx-background-color: yellow; -fx-text-size: 60px; "
                               + "-fx-min-width: 80px; -fx-min-height: 80px; "
                               + "-fx-max-width: 80px; -fx-max-height: 80px; ");
@@ -574,20 +552,18 @@ public class TicTacToe extends Application
                 
             case 2:
                 RC[2][0].setStyle(" -fx-background-color: yellow; -fx-text-size: 60px; "
-                              + "-fx-min-width: 80px; -fx-min-height: 80px; "
-                              + "-fx-max-width: 80px; -fx-max-height: 80px; ");
+                            + "-fx-min-width: 80px; -fx-min-height: 80px; "
+                            + "-fx-max-width: 80px; -fx-max-height: 80px; ");
                 RC[1][1].setStyle(" -fx-background-color: yellow; -fx-text-size: 60px; "
                             + "-fx-min-width: 80px; -fx-min-height: 80px; "
                             + "-fx-max-width: 80px; -fx-max-height: 80px; "
                             + "-fx-border-width: 4 4 4 4; -fx-border-color: red red red red;");
                 RC[0][2].setStyle(" -fx-background-color: yellow; -fx-text-size: 60px; "
-                              + "-fx-min-width: 80px; -fx-min-height: 80px; "
-                              + "-fx-max-width: 80px; -fx-max-height: 80px; ");
+                            + "-fx-min-width: 80px; -fx-min-height: 80px; "
+                            + "-fx-max-width: 80px; -fx-max-height: 80px; ");
                 break;
         }
     }
-    
-    public static void setMessage(String m) { message.setText(m); }
 
     /**
      * @param args the command line arguments
