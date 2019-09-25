@@ -25,14 +25,18 @@ public class ScoreBoard extends GridPane
     private int oTotal;
     private int catTotal;
     
-    
-    
+    /** ScoreBoard() - class constructor
+     * 
+     */
     public ScoreBoard()
     {
         super();
         init();
     }
     
+    /** init() - standard init routine called from constructor initialize and set the board up
+     * 
+     */
     private void init()
     {
         setPadding(new Insets(4, 4, 4, 4));
@@ -68,20 +72,32 @@ public class ScoreBoard extends GridPane
         catScore.setText(String.valueOf(catTotal));
     }
     
+    /** setMessage() - passing in a message string, this gets displayed in Label under the scores
+     * @param msg 
+     */
     public void setMessage(String msg) { scoreboardMessage.setText(msg); }
     
+    /** xWins() - add to X win total, set the score and show message that X won the game
+     * 
+     */
     public void xWins() 
     { 
         xScore.setText(String.valueOf(++xTotal));
         setMessage("  X WINS !! ");
     }
     
+    /** oWins() - add to O win total, set the score and show message that O won the game
+     * 
+     */
     public void oWins() 
     { 
         oScore.setText(String.valueOf(++oTotal));
         setMessage("  O WINS !! ");
     }
     
+    /** catWins() - game had NO winner, add to the CAT total and show the message that we had no winner
+     * 
+     */
     public void catWins() 
     { 
         catScore.setText(String.valueOf(++catTotal));

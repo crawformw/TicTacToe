@@ -114,6 +114,9 @@ public class TicTacToe extends Application
         primaryStage.show();
     }
     
+    /** clearTheBoard() - called when the New Game button is pressed to reset the board and clear all buttons
+     * 
+     */
     public void clearTheBoard()
     {
         for (int i=0; i < 3; i++)
@@ -166,10 +169,12 @@ public class TicTacToe extends Application
                 }
             }
         }
-        startNewGame();
-        
+        startNewGame();                 // after board is clear called the startNewGame() routine
     }
     
+    /** startNewGame() - called after the board is cleared, set things up for a new game
+     * 
+     */
     public void startNewGame()
     {   
         gameOn = true;
@@ -197,6 +202,9 @@ public class TicTacToe extends Application
         }
     }
     
+    /** nextComputerMove() - this is called when checkbox is selected and play is against the computer, 
+     * called each time the computer needs to make a move
+     */
     private static void nextComputerMove()
     {
         boolean moveMade = false;
@@ -313,72 +321,53 @@ public class TicTacToe extends Application
     
     public static void checkGameStatus()
     {
-        int row1 = 0;
-        int row2 = 0;
-        int row3 = 0;
-        int col1 = 0;
-        int col2 = 0;
-        int col3 = 0;
         int dia1 = 0;
         int dia2 = 0;
+        
+        int rows[] = { 0, 0, 0};
+        int cols[] = { 0, 0, 0};
         
         // calc row/col values
         for (int i=0; i<3; i++)
         {
-            row1 += RC[0][i].getValue();
-            row2 += RC[1][i].getValue();
-            row3 += RC[2][i].getValue();
-            
-            col1 += RC[i][0].getValue();
-            col2 += RC[i][1].getValue();
-            col3 += RC[i][2].getValue();
+            rows[i] = RC[i][0].getValue() + RC[i][1].getValue() + RC[i][2].getValue();
+            cols[i] = RC[0][i].getValue() + RC[1][i].getValue() + RC[2][i].getValue();
         }
         
         // calc the two diag values
         dia1 = RC[0][0].getValue() + RC[1][1].getValue() + RC[2][2].getValue();
         dia2 = RC[0][2].getValue() + RC[1][1].getValue() + RC[2][0].getValue();
         
-        // check if X is the winner in any case
-        if (row1 == 3)
+        // check the rows/cols array to see if we have a winner
+        for (int i=0; i<3; i++)
         {
-            highLightRow(0);
-            gameOn = false;
-            ticTacBoard.xWins();
-        }
-        
-        if (row2 == 3)
-        {
-            highLightRow(1);
-            gameOn = false;
-            ticTacBoard.xWins();
-        }
-        
-        if (row3 == 3)
-        {
-            highLightRow(2);
-            gameOn = false;
-            ticTacBoard.xWins();
-        }
-        
-        if (col1 == 3)
-        {
-            highLightCol(0);
-            gameOn = false;
-            ticTacBoard.xWins();
-        }
-        
-        if (col2 == 3)
-        {
-            highLightCol(1);
-            gameOn = false; 
-            ticTacBoard.xWins();
-        }
-        
-        if (col3 == 3)
-        {
-            highLightCol(2);
-            gameOn = false;
-            ticTacBoard.xWins();
+            if (rows[i] == 3)
+            {
+                highLightRow(i);
+                gameOn = false;
+                ticTacBoard.xWins();
+            }
+            
+            if (rows[i] == -3)
+            {
+                highLightRow(i);
+                gameOn = false;
+                ticTacBoard.oWins();
+            }
+            
+            if (cols[i] == 3)
+            {
+                highLightCol(i);
+                gameOn = false;
+                ticTacBoard.xWins();
+            }
+            
+            if (cols[i] == -3)
+            {
+                highLightCol(i);
+                gameOn = false;
+                ticTacBoard.oWins();
+            }
         }
         
         if ( dia1 == 3 ) 
@@ -393,49 +382,6 @@ public class TicTacToe extends Application
             highLightDiagonal(2);
             gameOn = false;
             ticTacBoard.xWins();
-        }
-        
-        // check if O is the winner in any case
-       if (row1 == -3)
-        {
-            highLightRow(0);
-            gameOn = false;
-            ticTacBoard.oWins();
-        }
-        
-        if (row2 == -3)
-        {
-            highLightRow(1);
-            gameOn = false;
-            ticTacBoard.oWins();
-        }
-        
-        if (row3 == -3)
-        {
-            highLightRow(2);
-            gameOn = false;
-            ticTacBoard.oWins();
-        }
-        
-        if (col1 == -3)
-        {
-            highLightCol(0);
-            gameOn = false;
-            ticTacBoard.oWins();
-        }
-        
-        if (col2 == -3)
-        {
-            highLightCol(1);
-            gameOn = false;
-            ticTacBoard.oWins();
-        }
-        
-        if (col3 == -3)
-        {
-            highLightCol(2);
-            gameOn = false;
-            ticTacBoard.oWins();
         }
         
         if ( dia1 == -3 ) 
@@ -463,6 +409,9 @@ public class TicTacToe extends Application
              
     }
     
+    /** highLightRow() - called after a win and the row shows the victory, or a CAT and the whole board is lit
+     * @param row 
+     */
     private static void highLightRow(int row)
     {
         switch(row)
@@ -565,7 +514,7 @@ public class TicTacToe extends Application
         }
     }
 
-    /**
+    /** main() - obvious routine
      * @param args the command line arguments
      */
     public static void main(String[] args) { launch(args); }
