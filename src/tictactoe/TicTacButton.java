@@ -7,14 +7,14 @@ import javafx.scene.control.Button;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
-/**
+/** class TicTacButton - extending Button class, called to create each of the 9 squares on the board
  *
  * @author mikec
  */
 public class TicTacButton extends Button
 {
-    private int value;
-    private boolean selected;
+    private int value;                          // value assigned based on selection
+    private boolean selected;                   // boolean flag to indicate the button has something in it
     
     public TicTacButton(String label)
     {
@@ -28,6 +28,9 @@ public class TicTacButton extends Button
         init();
     }
     
+    /** init() - called from constructor to initialize the button, set value, set selected, set appearance
+     * 
+     */
     private void init()
     {
         value = 0;
@@ -38,6 +41,7 @@ public class TicTacButton extends Button
                 + "-fx-min-width: 80px; -fx-min-height: 80px; "
                 + "-fx-max-width: 80px; -fx-max-height: 80px;");
         
+        // button action defined here
         setOnAction((ActionEvent ae) -> 
         {
             if (TicTacToe.isGameOn())
@@ -62,6 +66,9 @@ public class TicTacButton extends Button
         });         
     }
     
+    /** clear() - called when a new game is played to clear the button of any value
+     * 
+     */
     public void clear() 
     { 
         setText("");
@@ -69,6 +76,9 @@ public class TicTacButton extends Button
         selected = false;
     }
     
+    /** computerSelect() - called when user is playing the computer and the logic chooses a button
+     * 
+     */
     public void computerSelect()
     {
         if (TicTacToe.isGameOn())
@@ -79,10 +89,16 @@ public class TicTacButton extends Button
             TicTacToe.checkGameStatus();
             TicTacToe.nextTurn();
         }
-        else { System.out.println("GAME OVER - Start Again"); }
     }
     
+    /** getValue() - return the value assigned to the button
+     * @return 
+     */
     public int getValue() { return value; }
+    
+    /** isSelected() - return an integer value relating to the selected flag
+     * @return 
+     */
     public int isSelected() 
     { 
         if (selected) { return 1; }
